@@ -27,13 +27,13 @@ const config = {
     },
   },
   entry: {
-    main: [
+    main: path.resolve(SRC_PATH, './index.jsx'),
+    style: path.resolve(SRC_PATH, './index.css'),
+    buildinfo: path.resolve(SRC_PATH, './buildinfo.js'),
+    others: [
       'core-js',
       'regenerator-runtime/runtime',
       // 'jquery-binarytransport',
-      path.resolve(SRC_PATH, './index.css'),
-      path.resolve(SRC_PATH, './buildinfo.js'),
-      path.resolve(SRC_PATH, './index.jsx'),
     ],
   },
   mode: 'production',
@@ -106,21 +106,33 @@ const config = {
 
   optimization: {
     runtimeChunk: 'single',
-    splitChunks: {
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all',
-        },
-      },
-    },
     // minimize: isEnvProduction,
     // minimizer: [
     //   new TerserPlugin(),
     // ],
     runtimeChunk: {
       name: (entrypoint) => `runtime-${entrypoint.name}`,
+    },
+    splitChunks: {
+      chunks: 'all',
+      minSize: 20000,
+      minRemainingSize: 0,
+      minChunks: 1,
+      maxAsyncRequests: 30,
+      maxInitialRequests: 30,
+      enforceSizeThreshold: 50000,
+      cacheGroups: {
+        defaultVendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10,
+          reuseExistingChunk: true,
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true,
+        },
+      },
     },
   },
 };

@@ -1,1 +1,1 @@
-export { AppPage } from './AppPage';
+export { AppPage as default } from './AppPage';

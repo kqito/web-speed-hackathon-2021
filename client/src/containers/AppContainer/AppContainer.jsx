@@ -1,9 +1,10 @@
 import React, { Suspense } from 'react';
 import { Switch, Route, useLocation } from 'react-router-dom';
 
-import { AppPage } from '../../components/application/AppPage';
 import { useFetch } from '../../hooks/use_fetch';
 import { fetchJSON } from '../../utils/fetchers';
+
+// import AppPage from '../../components/application/AppPage';
 // import { AuthModalContainer } from '../AuthModalContainer';
 // import { NewPostModalContainer } from '../NewPostModalContainer';
 // import { NotFoundContainer } from '../NotFoundContainer';
@@ -12,6 +13,7 @@ import { fetchJSON } from '../../utils/fetchers';
 // import { TimelineContainer } from '../TimelineContainer';
 // import { UserProfileContainer } from '../UserProfileContainer';
 
+const AppPage = React.lazy(() => import('../../components/application/AppPage'));
 const AuthModalContainer = React.lazy(() => import('../AuthModalContainer'));
 const NewPostModalContainer = React.lazy(() => import('../NewPostModalContainer'));
 const NotFoundContainer = React.lazy(() => import('../NotFoundContainer'));
