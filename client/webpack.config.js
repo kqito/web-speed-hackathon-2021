@@ -79,7 +79,19 @@ const config = {
       filename: 'styles/[name].css',
     }),
     new HtmlWebpackPlugin({
-      inject: false,
+      inject: true,
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true,
+      },
       template: path.resolve(SRC_PATH, './index.html'),
     }),
   ].filter(Boolean),
@@ -92,19 +104,10 @@ const config = {
   },
 
   optimization: {
-    minimize: isEnvProduction,
-    minimizer: [
-      new TerserPlugin(),
-      new OptimizeCSSAssetsPlugin({
-        cssProcessorOptions: {
-          parser: safePostCssParser,
-          map: false,
-        },
-        cssProcessorPluginOptions: {
-          preset: ['default', { minifyFontValues: { removeQuotes: false } }],
-        },
-      }),
-    ],
+    // minimize: isEnvProduction,
+    // minimizer: [
+    //   new TerserPlugin(),
+    // ],
     splitChunks: {
       chunks: 'all',
     },

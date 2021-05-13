@@ -1,1 +1,1 @@
-export { TermContainer } from './TermContainer';
+export { TermContainer as defualt } from './TermContainer';
