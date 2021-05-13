@@ -3,6 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const SRC_PATH = path.resolve(__dirname, './src');
 const PUBLIC_PATH = path.resolve(__dirname, '../public');
@@ -53,6 +54,7 @@ const config = {
     path: DIST_PATH,
   },
   plugins: [
+    process.env.ANALYZER === 'true' && new BundleAnalyzerPlugin(),
     new webpack.ProvidePlugin({
       $: 'jquery',
       AudioContext: ['standardized-audio-context', 'AudioContext'],
@@ -72,7 +74,7 @@ const config = {
       inject: false,
       template: path.resolve(SRC_PATH, './index.html'),
     }),
-  ],
+  ].filter(Boolean),
   resolve: {
     extensions: ['.js', '.jsx'],
     fallback: {
