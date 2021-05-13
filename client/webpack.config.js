@@ -1,7 +1,5 @@
 const path = require('path');
 
-const isEnvProduction = true;
-
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
@@ -28,13 +26,12 @@ const config = {
   },
   entry: {
     main: path.resolve(SRC_PATH, './index.jsx'),
-    style: path.resolve(SRC_PATH, './index.css'),
     buildinfo: path.resolve(SRC_PATH, './buildinfo.js'),
-    others: [
-      'core-js',
-      'regenerator-runtime/runtime',
-      // 'jquery-binarytransport',
-    ],
+    // others: [
+    //   'core-js',
+    //   'regenerator-runtime/runtime',
+    //   // 'jquery-binarytransport',
+    // ],
   },
   mode: 'production',
   module: {
@@ -56,6 +53,7 @@ const config = {
   },
   output: {
     filename: 'scripts/[name].js',
+    chunkFilename: 'scripts/[name].js',
     path: DIST_PATH,
   },
   plugins: [
@@ -106,10 +104,8 @@ const config = {
 
   optimization: {
     runtimeChunk: 'single',
-    // minimize: isEnvProduction,
-    // minimizer: [
-    //   new TerserPlugin(),
-    // ],
+    minimize: true,
+    minimizer: [new TerserPlugin()],
     runtimeChunk: {
       name: (entrypoint) => `runtime-${entrypoint.name}`,
     },

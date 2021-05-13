@@ -1,1 +1,1 @@
-export { TermContainer as defualt } from './TermContainer';
+export { TermContainer as default } from './TermContainer';
