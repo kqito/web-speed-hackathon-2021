@@ -59,13 +59,14 @@ const config = {
     path: DIST_PATH,
   },
   plugins: [
+    new webpack.ContextReplacementPlugin(/moment[\\/]locale$/, /^\.\/(ja)$/),
     process.env.ANALYZER === 'true' &&
       new BundleAnalyzerPlugin({
         analyzerPort: 9999,
       }),
     new webpack.ProvidePlugin({
       $: 'jquery',
-      AudioContext: ['standardized-audio-context', 'AudioContext'],
+      // AudioContext: ['standardized-audio-context', 'AudioContext'],
       Buffer: ['buffer', 'Buffer'],
       'window.jQuery': 'jquery',
     }),
@@ -73,7 +74,7 @@ const config = {
       BUILD_DATE: new Date().toISOString(),
       // Heroku では SOURCE_VERSION 環境変数から commit hash を参照できます
       COMMIT_HASH: process.env.SOURCE_VERSION || '',
-      NODE_ENV: 'development',
+      NODE_ENV: 'production',
     }),
     new MiniCssExtractPlugin({
       filename: 'styles/[name].css',

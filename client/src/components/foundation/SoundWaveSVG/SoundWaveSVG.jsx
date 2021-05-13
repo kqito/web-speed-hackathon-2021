@@ -14,6 +14,7 @@ const SoundWaveSVG = ({ soundData }) => {
   const [{ max, peaks }, setPeaks] = React.useState({ max: 0, peaks: [] });
 
   React.useEffect(async () => {
+    const AudioContext = await import('standardized-audio-context').then(({ AudioContext }) => AudioContext);
     const audioCtx = new AudioContext();
 
     // 音声をデコードする
