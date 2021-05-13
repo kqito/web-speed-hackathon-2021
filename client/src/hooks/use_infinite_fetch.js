@@ -86,10 +86,14 @@ const LIMIT = 10;
 //     fetchMore,
 //   };
 // }
+//
 
 export const useInfiniteFetch = (url, fetcher) => {
   const getKey = (pageIndex, previousPageData) => {
     if (previousPageData && !previousPageData.length) return null;
+
+    if (pageIndex === 0) return `${url}?limit=${LIMIT}`;
+
     return `${url}?limit=${LIMIT}&offset=${pageIndex}`;
   };
 
@@ -99,8 +103,20 @@ export const useInfiniteFetch = (url, fetcher) => {
     result.setSize(result.size + LIMIT);
   }, [result]);
 
+  const data = [];
+  if (result.data && result.data.length) {
+    result.data.forEach((d) => data.push(...d));
+  }
+
+  console.log('result', {
+    ...result,
+    data,
+    fetchMore,
+  });
+
   return {
     ...result,
+    data,
     fetchMore,
   };
 };
