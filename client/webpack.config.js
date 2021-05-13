@@ -1,9 +1,14 @@
 const path = require('path');
 
+const isEnvProduction = true;
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const TerserPlugin = require('terser-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const safePostCssParser = require('postcss-safe-parser');
 
 const SRC_PATH = path.resolve(__dirname, './src');
 const PUBLIC_PATH = path.resolve(__dirname, '../public');
@@ -54,7 +59,10 @@ const config = {
     path: DIST_PATH,
   },
   plugins: [
-    process.env.ANALYZER === 'true' && new BundleAnalyzerPlugin(),
+    process.env.ANALYZER === 'true' &&
+      new BundleAnalyzerPlugin({
+        analyzerPort: 9999,
+      }),
     new webpack.ProvidePlugin({
       $: 'jquery',
       AudioContext: ['standardized-audio-context', 'AudioContext'],
@@ -80,6 +88,28 @@ const config = {
     fallback: {
       fs: false,
       path: false,
+    },
+  },
+
+  optimization: {
+    minimize: isEnvProduction,
+    minimizer: [
+      new TerserPlugin(),
+      new OptimizeCSSAssetsPlugin({
+        cssProcessorOptions: {
+          parser: safePostCssParser,
+          map: false,
+        },
+        cssProcessorPluginOptions: {
+          preset: ['default', { minifyFontValues: { removeQuotes: false } }],
+        },
+      }),
+    ],
+    splitChunks: {
+      chunks: 'all',
+    },
+    runtimeChunk: {
+      name: (entrypoint) => `runtime-${entrypoint.name}`,
     },
   },
 };
