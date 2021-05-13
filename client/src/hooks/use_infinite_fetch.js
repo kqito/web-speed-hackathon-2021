@@ -108,12 +108,6 @@ export const useInfiniteFetch = (url, fetcher) => {
     result.data.forEach((d) => data.push(...d));
   }
 
-  console.log('result', {
-    ...result,
-    data,
-    fetchMore,
-  });
-
   return {
     ...result,
     data,
