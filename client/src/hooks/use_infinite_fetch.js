@@ -1,3 +1,4 @@
+import React from 'react';
 import { useSWRInfinite } from 'swr';
 
 const LIMIT = 10;
