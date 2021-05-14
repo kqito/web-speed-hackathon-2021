@@ -1,13 +1,31 @@
 import { gzip } from 'pako';
 
+export const domainReg = /[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+/;
+
+export const CDN_URL = 'cache-1932b.kxcdn.com';
+
+export const replaceCdnDomain = (url, { imageSuffix }) => {
+  const imageReg = new RegExp('.*/images/.*');
+  if (imageReg.test(url)) {
+    return `https://${CDN_URL}${url}${imageSuffix || ''}`;
+  }
+
+  return `https://${CDN_URL}${url}`;
+};
+
 /**
  * @param {string} url
  * @returns {Promise<ArrayBuffer>}
  */
 async function fetchBinary(url) {
-  const result = await fetch(url, {
-    method: 'GET',
-  });
+  const result = await fetch(
+    replaceCdnDomain(url, {
+      imageSuffix: '?&width=800',
+    }),
+    {
+      method: 'GET',
+    },
+  );
 
   const data = await result.arrayBuffer();
   return data;
