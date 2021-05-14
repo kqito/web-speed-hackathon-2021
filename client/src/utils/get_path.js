@@ -1,3 +1,5 @@
+import { replaceCdnDomain } from './fetchers';
+
 /**
  * @param {string} imageId
  * @returns {string}
@@ -27,7 +29,9 @@ function getSoundPath(soundId) {
  * @returns {string}
  */
 function getProfileImagePath(profileImageId) {
-  return `/images/profiles/${profileImageId}.jpg`;
+  return replaceCdnDomain(`/images/profiles/${profileImageId}.jpg`, {
+    imageSuffix: '?&width=800',
+  });
 }
 
 export { getImagePath, getMoviePath, getSoundPath, getProfileImagePath };
