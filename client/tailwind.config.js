@@ -1,4 +1,3 @@
 module.exports = {
-  purge: ['./src/**/*.jsx'],
-  darkMode: false,
+  purge: ['./src/containers/**/*.jsx', './src/components/**/*.jsx'],
 };
