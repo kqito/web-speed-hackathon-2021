@@ -5,12 +5,7 @@ export const domainReg = /[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{
 export const CDN_URL = 'cache-1932b.kxcdn.com';
 
 export const replaceCdnDomain = (url, { imageSuffix }) => {
-  const imageReg = new RegExp('.*/images/.*');
-  if (imageReg.test(url)) {
-    return `https://${CDN_URL}${url}${imageSuffix || ''}`;
-  }
-
-  return `https://${CDN_URL}${url}`;
+  return `https://${CDN_URL}${url}${imageSuffix || ''}`;
 };
 
 /**
