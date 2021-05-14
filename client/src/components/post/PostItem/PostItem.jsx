@@ -23,7 +23,11 @@ const PostItem = ({ post }) => {
               className="w-14 h-14 hover:opacity-95 block bg-gray-300 border border-gray-300 rounded-full overflow-hidden sm:w-16 sm:h-16"
               to={`/users/${post.user.username}`}
             >
-              <img alt={post.user.profileImage.alt} src={getProfileImagePath(post.user.profileImage.id)} />
+              <img
+                loading="lazy"
+                alt={post.user.profileImage.alt}
+                src={getProfileImagePath(post.user.profileImage.id)}
+              />
             </Link>
           </div>
           <div className="whitespace-nowrap overflow-ellipsis flex-grow flex-shrink min-w-0 overflow-hidden">

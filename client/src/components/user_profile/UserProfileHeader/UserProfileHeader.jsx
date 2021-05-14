@@ -27,13 +27,19 @@ const UserProfileHeader = ({ user }) => {
     <header className="relative">
       <div className="h-32 bg-gray-300" style={{ backgroundColor: averageColor }}></div>
       <div className="left-2/4 w-28 h-28 absolute m-0 bg-gray-300 border border-gray-300 rounded-full overflow-hidden transform -translate-x-1/2 -translate-y-1/2 sm:w-32 sm:h-32">
-        <img alt="" crossOrigin="anonymous" src={getProfileImagePath(user.profileImage.id)} onLoad={handleLoadImage} />
+        <img
+          loading="lazy"
+          alt=""
+          crossOrigin="anonymous"
+          src={getProfileImagePath(user.profileImage.id)}
+          onLoad={handleLoadImage}
+        />
       </div>
-      <div className="pt-20 px-4">
+      <div className="px-4 pt-20">
         <h1 className="text-2xl font-bold">{user.name}</h1>
         <p className="text-gray-600">@{user.username}</p>
         <p className="pt-2">{user.description}</p>
-        <p className="pt-2 text-gray-600 text-sm">
+        <p className="pt-2 text-sm text-gray-600">
           <span className="pr-1">
             <FontAwesomeIcon iconType="calendar-alt" styleType="regular" />
           </span>

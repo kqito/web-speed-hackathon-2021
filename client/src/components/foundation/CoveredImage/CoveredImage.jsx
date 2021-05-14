@@ -45,6 +45,7 @@ const CoveredImage = ({ alt, src }) => {
   return (
     <div ref={callbackRef} className="relative w-full h-full overflow-hidden">
       <img
+        loading="lazy"
         alt={alt}
         className={classNames('left-1/2 top-1/2 absolute max-w-none transform -translate-x-1/2 -translate-y-1/2', {
           'w-auto h-full': containerRatio > imageRatio,
