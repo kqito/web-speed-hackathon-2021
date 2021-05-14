@@ -21,6 +21,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.raw({ limit: '10mb' }));
 
 app.use((_req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.header({
     'Cache-Control': 'max-age=0, no-transform',
     Connection: 'close',
